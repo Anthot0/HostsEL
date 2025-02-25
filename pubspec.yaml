@@ -1,10 +1,10 @@
-name: mon_projet
-version: 1.0.0+1
-description: "Une application Flutter pour la gestion des réservations de HOST'S EL."
+name: hosts_el
+description: "Application Flutter pour la gestion hôtelière."
 publish_to: "none"
+version: 1.0.0+1
 
 environment:
-  sdk: ">=3.7.0 <4.0.0"
+  sdk: ">=3.0.0 <4.0.0"
 
 dependencies:
   flutter:
@@ -12,20 +12,15 @@ dependencies:
   firebase_core: any
   firebase_auth: any
   cloud_firestore: any
-  firebase_storage: any
-  flutter_signature_pad: any
-  image_picker: any
-  local_auth: any
   provider: any
-  path_provider: any
-
-
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^2.0.0
-
+  flutter_lints: any
 
 flutter:
   uses-material-design: true
+
+  assets:
+    - assets/logo.jpg
