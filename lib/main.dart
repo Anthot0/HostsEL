@@ -1,52 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:mon_projet/screens/home_screen.dart';
+import 'package:mon_projet/screens/login_staff.dart';
+import 'package:mon_projet/screens/dashboard.dart';
+import 'firebase_options.dart';
 
-void main() {
-  runApp(const MonProjetApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  runApp(const MyApp());
 }
 
-class MonProjetApp extends StatelessWidget {
-  const MonProjetApp({super.key});
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Gestion Maison d’Hôtes',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const HomeScreen(),
-    );
-  }
-}
-
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Gestion Maison d’Hôtes'),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text(
-              'Bienvenue dans votre logiciel de gestion !',
-              style: TextStyle(fontSize: 18),
-            ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                // Ajouter l’action pour voir les chambres
-              },
-              child: const Text('Voir les chambres'),
-            ),
-          ],
-        ),
-      ),
+      theme: ThemeData(primarySwatch: Colors.blue),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => const HomeScreen(),
+        '/login': (context) => const LoginStaffScreen(),
+        '/dashboard': (context) => const DashboardScreen(),
+      },
     );
   }
 }

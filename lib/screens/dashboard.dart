@@ -7,7 +7,7 @@ class DashboardScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text("Tableau de Bord")),
-      body: const Center(child: Text("Bienvenue sur le Tableau de Bord !")),
+      body: const Center(child: Text("Bienvenue sur le tableau de bord !")),
     );
   }
 }
