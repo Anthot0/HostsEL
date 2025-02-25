@@ -1,71 +1,48 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:mon_projet/screens/dashboard.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:hosts_el/screens/dashboard.dart';
+import 'package:hosts_el/screens/home_screen.dart';
 
 class LoginStaffScreen extends StatefulWidget {
   const LoginStaffScreen({super.key});
 
   @override
-  State<LoginStaffScreen> createState() => _LoginStaffScreenState();
+  _LoginStaffScreenState createState() => _LoginStaffScreenState();
 }
 
 class _LoginStaffScreenState extends State<LoginStaffScreen> {
   final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _pinController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  void _validateManualLogin() async {
-    String email = _emailController.text.trim();
-    String pin = _pinController.text.trim();
-
-    if (email.isEmpty || pin.isEmpty) {
-      _showErrorDialog("Veuillez remplir tous les champs.");
-      return;
-    }
-
+  Future<void> _login() async {
     try {
-      var userDoc =
-          await FirebaseFirestore.instance
-              .collection('users')
-              .where('email', isEqualTo: email)
-              .where('pin', isEqualTo: pin)
-              .get();
+      await _auth.signInWithEmailAndPassword(
+        email: _emailController.text.trim(),
+        password: _passwordController.text.trim(),
+      );
 
-      if (userDoc.docs.isNotEmpty) {
-        // 🔹 Redirige vers le Dashboard après connexion réussie
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => const DashboardScreen()),
-        );
-      } else {
-        _showErrorDialog("Email ou PIN incorrect.");
-      }
+      if (!mounted) return; // Évite les erreurs si le widget est détruit
+
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const DashboardScreen()),
+      );
     } catch (e) {
-      _showErrorDialog("Erreur de connexion: $e");
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Erreur de connexion : ${e.toString()}")),
+      );
     }
-  }
-
-  void _showErrorDialog(String message) {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: const Text("Erreur"),
-          content: Text(message),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(context),
-              child: const Text("OK"),
-            ),
-          ],
-        );
-      },
-    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Login Staff")),
+      appBar: AppBar(
+        title: const Text('Login Staff'),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
@@ -74,20 +51,16 @@ class _LoginStaffScreenState extends State<LoginStaffScreen> {
             TextField(
               controller: _emailController,
               decoration: const InputDecoration(labelText: "Email"),
-              keyboardType: TextInputType.emailAddress,
             ),
             TextField(
-              controller: _pinController,
-              decoration: const InputDecoration(
-                labelText: "Code PIN (6 chiffres)",
-              ),
-              keyboardType: TextInputType.number,
-              maxLength: 6,
+              controller: _passwordController,
+              decoration: const InputDecoration(labelText: "Mot de passe"),
+              obscureText: true,
             ),
             const SizedBox(height: 20),
             ElevatedButton(
-              onPressed: _validateManualLogin,
-              child: const Text("Se connecter"),
+              onPressed: _login,
+              child: const Text("Connexion"),
             ),
           ],
         ),

@@ -4,16 +4,6 @@ import 'package:firebase_core/firebase_core.dart' show FirebaseOptions;
 import 'package:flutter/foundation.dart'
     show defaultTargetPlatform, kIsWeb, TargetPlatform;
 
-/// Default [FirebaseOptions] for use with your Firebase apps.
-///
-/// Example:
-/// ```dart
-/// import 'firebase_options.dart';
-/// // ...
-/// await Firebase.initializeApp(
-///   options: DefaultFirebaseOptions.currentPlatform,
-/// );
-/// ```
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
@@ -30,8 +20,7 @@ class DefaultFirebaseOptions {
         return windows;
       case TargetPlatform.linux:
         throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for linux - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
+          'DefaultFirebaseOptions have not been configured for linux.',
         );
       default:
         throw UnsupportedError(
@@ -46,7 +35,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '289472698538',
     projectId: 'host-s-el',
     authDomain: 'host-s-el.firebaseapp.com',
-    storageBucket: 'host-s-el.firebasestorage.app',
+    storageBucket: 'host-s-el.appspot.com',
     measurementId: 'G-JK851N9SLE',
   );
 
@@ -55,7 +44,7 @@ class DefaultFirebaseOptions {
     appId: '1:289472698538:android:d52283cdd40639e45718d3',
     messagingSenderId: '289472698538',
     projectId: 'host-s-el',
-    storageBucket: 'host-s-el.firebasestorage.app',
+    storageBucket: 'host-s-el.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
@@ -63,8 +52,8 @@ class DefaultFirebaseOptions {
     appId: '1:289472698538:ios:bbb05520313f3dc85718d3',
     messagingSenderId: '289472698538',
     projectId: 'host-s-el',
-    storageBucket: 'host-s-el.firebasestorage.app',
-    iosBundleId: 'com.example.monProjet',
+    storageBucket: 'host-s-el.appspot.com',
+    iosBundleId: 'com.example.hosts_el',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
@@ -72,8 +61,8 @@ class DefaultFirebaseOptions {
     appId: '1:289472698538:ios:bbb05520313f3dc85718d3',
     messagingSenderId: '289472698538',
     projectId: 'host-s-el',
-    storageBucket: 'host-s-el.firebasestorage.app',
-    iosBundleId: 'com.example.monProjet',
+    storageBucket: 'host-s-el.appspot.com',
+    iosBundleId: 'com.example.hosts_el',
   );
 
   static const FirebaseOptions windows = FirebaseOptions(
@@ -82,8 +71,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '289472698538',
     projectId: 'host-s-el',
     authDomain: 'host-s-el.firebaseapp.com',
-    storageBucket: 'host-s-el.firebasestorage.app',
+    storageBucket: 'host-s-el.appspot.com',
     measurementId: 'G-8ELP8ZG1V8',
   );
-
 }
