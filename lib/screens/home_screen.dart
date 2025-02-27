@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hosts_el/screens/dashboard.dart';
-import 'package:hosts_el/screens/home_screen.dart';
+import 'package:hosts_el/screens/login_staff.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
